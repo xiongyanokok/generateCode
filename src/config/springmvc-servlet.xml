@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+          http://www.springframework.org/schema/beans/spring-beans.xsd   
+          http://www.springframework.org/schema/context   
+          http://www.springframework.org/schema/context/spring-context.xsd  
+          http://www.springframework.org/schema/mvc   
+          http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- 自动扫描 -->
+	<context:component-scan base-package="com.app" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- 允许对静态资源文件的访问 <mvc:default-servlet-handler/> -->
+
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 默认jsp在  /pages/ 目录下-->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/pages/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
+	
+
+
+	<!-- handler 适配器 处理返回的json -->
+	<bean id="handlerAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	</bean>
+	
+	<!-- 登录拦截 拦截器 
+	<mvc:interceptors>
+    	<mvc:interceptor>
+    		<mvc:mapping path="/**"/>
+    		<bean class="com.app.action.sys.LoginInterceptor">
+    		  <property name="disable" value="false"/>
+    		</bean>
+    	</mvc:interceptor>
+    </mvc:interceptors>
+    -->
+
+   <!-- 系统默认的 objectMapper-->
+    <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
+       <property name="dateFormat">  
+                <bean class="java.text.SimpleDateFormat">  
+                      <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />  
+                </bean>  
+       </property> 
+   </bean>
+   <!-- 定制的 objectMapper  继承于 objectMapper-->
+   <bean id="myObjectMapper" class="com.common.spring.MyObjectMapper" parent="objectMapper">
+   </bean>
+   
+   <!-- 默认的注解映射的支持 会自动注册DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter实例 -->
+	<mvc:annotation-driven >
+	 <mvc:message-converters>  
+	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
+		         <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+			    <property name="supportedMediaTypes">
+					<list>
+					    <value>application/json; charset=UTF-8</value>
+						<value>text/html; charset=UTF-8</value>
+					</list>
+				</property>
+                <property name="objectMapper" ref="myObjectMapper"/>  
+            </bean>  
+        </mvc:message-converters>  
+	</mvc:annotation-driven>
+   <!-- 支持上传文件 -->  
+   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+       <property name="defaultEncoding" value="utf-8" />
+       <property name="maxUploadSize" value="10485760000" />
+       <property name="maxInMemorySize" value="40960" />
+   </bean>  
+   <!-- 异常处理 -->
+   <bean id="exceptionResolver" class="com.common.spring.MySimpleMappingExceptionResolver">  
+      <property name="exceptionMappings">   
+        <props>   
+          <prop key="java.lang.Exception">/error/500</prop>  
+       </props>   
+     </property>   
+    </bean> 
+</beans>

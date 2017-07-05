@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.dao.demo.DemoDAO">
+	<resultMap type="com.app.pojo.Demo" id="demoResult">
+		<id column="id" property="id" />
+		<result property="name" column="name" />
+	</resultMap>
+	
+	<select id="queryByPage" resultMap="demoResult" parameterType="Map">
+	   select a.* from (
+	   select 1  id,'name1'  name UNION ALL SELECT 2  id,'name2'  name UNION ALL
+	   select 3  id,'name3'  name UNION ALL SELECT 4  id,'name4'  name UNION ALL
+	   select 5  id,'name5'  name UNION ALL SELECT 6  id,'name6'  name UNION ALL
+	   select 7  id,'name7'  name UNION ALL SELECT 8  id,'name8'  name UNION ALL
+	   select 9  id,'name9'  name UNION ALL SELECT 10 id,'name10' name UNION ALL
+	   select 11 id,'name11' name UNION ALL SELECT 12 id,'name12' name UNION ALL
+	   select 13 id,'name13' name UNION ALL SELECT 14 id,'name14' name UNION ALL
+	   select 15 id,'name15' name UNION ALL SELECT 16 id,'name16' name UNION ALL
+	   select 17 id,'name17' name UNION ALL SELECT 18 id,'name18' name UNION ALL
+	   select 19 id,'name19' name UNION ALL SELECT 20 id,'name20' name UNION ALL
+	   select 21 id,'name21' name UNION ALL SELECT 22 id,'name22' name UNION ALL
+	   select 23 id,'name23' name UNION ALL SELECT 24 id,'name24' name UNION ALL
+	   select 25 id,'name25' name UNION ALL SELECT 26 id,'name26' name UNION ALL
+	   select 27 id,'name27' name UNION ALL SELECT 28 id,'name28' name UNION ALL
+	   select 29 id,'name29' name UNION ALL SELECT 30 id,'name30' name 
+	   ) a
+	</select>
+	<select id="queryRowCount" parameterType="Map" resultType="long">
+	   select 30 from dual
+	</select>
+	
+	
+</mapper>

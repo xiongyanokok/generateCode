@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.dao.demo.DemoDAO">
+
+	<resultMap type="com.app.pojo.Demo" id="demoResult">
+		<id column="id" property="id" />
+		<result property="name" column="name" />
+	</resultMap>
+	
+	<sql id="querySql">
+     <where>
+			<if test="params!=id and params.id != null ">
+				 t.id = #{params.id}
+			</if>
+	 </where>
+	 </sql>		
+	
+	<select id="queryByPage" resultMap="demoResult" parameterType="Map">
+	   select t.* from ( select rownum id ,'name'||to_char(rownum) name from dual CONNECT BY rownum &lt; 30) t 
+	</select>
+	<select id="queryRowCount" parameterType="Map" resultType="long">
+	   select 30 from dual
+	</select>
+	
+	
+	
+</mapper>

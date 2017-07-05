@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+         http://www.springframework.org/schema/beans/spring-beans.xsd   
+         http://www.springframework.org/schema/tx   
+         http://www.springframework.org/schema/tx/spring-tx.xsd  
+         http://www.springframework.org/schema/context   
+         http://www.springframework.org/schema/context/spring-context.xsd   
+         http://www.springframework.org/schema/aop   
+         http://www.springframework.org/schema/aop/spring-aop.xsd
+         http://www.springframework.org/schema/cache 
+         http://www.springframework.org/schema/cache/spring-cache.xsd">
+    
+
+	<cache:annotation-driven />
+	
+	<!--  ConcurrentMap实现的缓存
+	<bean id="mapCacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+		<property name="caches">
+			<set>
+				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="default" />
+				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="appCache" />
+			</set>
+		</property>
+	</bean>
+	-->
+	
+	<!-- redis 缓存  参考spirngdata 配置
+	<bean
+        id='redisCacheManager' class='org.springframework.data.redis.cache.RedisCacheManager' c:template-ref='redisTemplate'/>
+	-->
+	
+	
+	<!-- cacheManager工厂类，指定ehcache.xml的位置 p:shared="true" 设置后不会产生冲突 -->
+	<bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+		p:configLocation="classpath:/config/ehcache.xml" p:shared="true" />
+
+	<!-- ehCahce 实现的缓存 -->
+	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" p:cacheManager-ref="cacheManagerFactory" />
+
+	<!-- 
+	缓存门面  
+	在使用缓存的时候 会委托代理到具体的CacheManager 来管理
+	如果具体的CacheManager 不具备缓存条件的时候则
+	根据标志位 fallbackToNoOpCache 来判断是否不做任何缓存操作
+	-->
+	<bean id="cacheManager" class="org.springframework.cache.support.CompositeCacheManager">
+		<property name="cacheManagers">
+			<list>
+				<ref bean="ehCacheManager" />
+			</list>
+		</property>
+		<property name="fallbackToNoOpCache" value="false" />
+	</bean>
+</beans>  
+	
+	
+	
+
