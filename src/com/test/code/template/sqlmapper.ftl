@@ -89,7 +89,7 @@
   	</select>
   
   	<!-- 根据map查询集合数据 -->
-  	<select id="list${className}ByMap" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	<select id="list${className}" resultMap="BaseResultMap" parameterType="java.util.Map">
   		select
         <include refid="Base_Column_List"/>
         from ${tableName}

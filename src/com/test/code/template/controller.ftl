@@ -58,7 +58,7 @@ public class ${className}Controller extends BaseController {
 		return pageInfoResult(new QueryCallback<${className}>() {
 			public List<${className}> query(Map<String, Object> map) {
 				// 查询条件
-				return ${smallClassName}Service.list${className}ByMap(map);
+				return ${smallClassName}Service.list${className}(map);
 			}
 		});
 	}

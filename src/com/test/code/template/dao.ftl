@@ -40,7 +40,7 @@ public interface ${className}Mapper {
      * @param map
      * @return
      */
-    ${className} get${className}ByMap(Map<String, Object> map);
+    ${className} get${className}(Map<String, Object> map);
     
     /**
      * 根据map查询集合数据
@@ -48,7 +48,7 @@ public interface ${className}Mapper {
      * @param map
      * @return
      */
-    List<${className}> list${className}ByMap(Map<String, Object> map);
+    List<${className}> list${className}(Map<String, Object> map);
     
     /**
      * 批量保存

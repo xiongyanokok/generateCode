@@ -103,10 +103,10 @@ public class ${className}ServiceImpl implements ${className}Service {
      * @throws XxxCustomException
      */
     @Override
-    public ${className} get${className}ByMap(Map<String, Object> map) {
+    public ${className} get${className}(Map<String, Object> map) {
     	Assert.notEmpty(map, "查询数据为空");
     	try {
-	    	return ${smallClassName}Mapper.get${className}ByMap(map);
+	    	return ${smallClassName}Mapper.get${className}(map);
 		} catch (Exception e) {
 			throw new XxxCustomException(ErrorCode.DB_SELECT_ERROR, "【" + map + "】查询单个失败", e);
 		}
@@ -120,10 +120,10 @@ public class ${className}ServiceImpl implements ${className}Service {
      * @throws XxxCustomException
      */
     @Override
-    public List<${className}> list${className}ByMap(Map<String, Object> map) {
+    public List<${className}> list${className}(Map<String, Object> map) {
    	 	Assert.notEmpty(map, "查询数据为空");
     	try {
-	    	return ${smallClassName}Mapper.list${className}ByMap(map);
+	    	return ${smallClassName}Mapper.list${className}(map);
 		} catch (Exception e) {
 			throw new XxxCustomException(ErrorCode.DB_SELECT_ERROR, "【" + map + "】查询列表失败", e);
 		}
