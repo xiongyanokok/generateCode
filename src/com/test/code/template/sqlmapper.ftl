@@ -112,21 +112,12 @@
   	
   	<!-- 批量保存 -->
 	<insert id="batchInsert" parameterType="java.util.List">
-		insert into ${tableName}
-			<trim prefix="(" suffix=")" suffixOverrides=",">
-    			<#list list as item>
-		      	<if test="${item.beanLable} != null">
-		        	${item.columnName},
-		      	</if>
-		      	</#list>
-    		</trim>
+		insert into ${tableName} (<include refid="Base_Column_List"/>)
 		values 
 		<foreach collection="list" index="index" item="item" separator=",">
 			<trim prefix="(" suffix=")" suffixOverrides=",">
 			<#list list as item>
-				<if test="${item.beanLable} != null">
-					${r"#{item."}${item.beanLable}${r"}"},
-				</if>
+				${r"#{item."}${item.beanLable}${r"}"},
 			</#list>
 			</trim>
 		</foreach>

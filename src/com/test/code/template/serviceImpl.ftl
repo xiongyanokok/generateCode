@@ -136,7 +136,7 @@ public class ${className}ServiceImpl implements ${className}Service {
      * @throws XxxCustomException
      */
     @Override
-    public void batchInsert(List<${className}> list) {
+    public void batchSave(List<${className}> list) {
     	Assert.notEmpty(list, "批量保存数据为空");
     	try {
 			List<List<${className}>> pageList = ListPageUtil.listPage(list, 1000);

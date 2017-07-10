@@ -63,7 +63,7 @@ public interface ${className}Service {
      * 
      * @param list
      */
-    void batchInsert(List<${className}> list);
+    void batchSave(List<${className}> list);
     
     /**
      * 批量更新
