@@ -64,11 +64,7 @@
   			</#list>
     	</set>
     	<where>
-    		<#list list as item>
-  			<if test="${item.beanLable} != null">
-    			and ${item.columnName} = ${r"#{"}${item.beanLable}${r"}"}
-  			</if>
-  			</#list>
+    		id = ${r"#{"}id${r"}"}
     	</where>
   	</update>
   	
