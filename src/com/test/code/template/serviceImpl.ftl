@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ${basePackage}.enums.ErrorCode;
-import ${basePackage}.enums.TrueFalseStatus;
+import ${basePackage}.enums.ErrorCodeEnum;
+import ${basePackage}.enums.TrueFalseStatusEnum;
 import ${basePackage}.exception.Assert;
 import ${basePackage}.exception.XxxCustomException;
 import ${basePackage}.mapper.${className}Mapper;
@@ -40,7 +40,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     	try {
 	    	return ${smallClassName}Mapper.selectByPrimaryKey(${firstName});
 		} catch (Exception e) {
-			throw new XxxCustomException(ErrorCode.DB_SELECT_ERROR, "【" + ${firstName} + "】查询失败", e);
+			throw new XxxCustomException(ErrorCodeEnum.DB_SELECT_ERROR, "【" + ${firstName} + "】查询失败", e);
 		}
     }
     
@@ -56,7 +56,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     	try {
 			${smallClassName}Mapper.insert(${smallClassName});
 		} catch (Exception e) {
-			throw new XxxCustomException(ErrorCode.DB_INSERT_ERROR, "【" + ${smallClassName}.toString() + "】保存失败", e);
+			throw new XxxCustomException(ErrorCodeEnum.DB_INSERT_ERROR, "【" + ${smallClassName}.toString() + "】保存失败", e);
 		}
     }
 
@@ -72,7 +72,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     	try {
     		${smallClassName}Mapper.update(${smallClassName});
 		} catch (Exception e) {
-			throw new XxxCustomException(ErrorCode.DB_UPDATE_ERROR, "【" + ${smallClassName}.toString() + "】修改失败", e);
+			throw new XxxCustomException(ErrorCodeEnum.DB_UPDATE_ERROR, "【" + ${smallClassName}.toString() + "】修改失败", e);
 		}
     }
     
@@ -88,10 +88,10 @@ public class ${className}ServiceImpl implements ${className}Service {
 		try {
     		${className} ${smallClassName} = new ${className}();
     		${smallClassName}.set${firstNameUp}(${firstName});
-    		${smallClassName}.setIsDelete(TrueFalseStatus.TRUE.getValue());
+    		${smallClassName}.setIsDelete(TrueFalseStatusEnum.TRUE.getValue());
     		${smallClassName}Mapper.update(${smallClassName});
 		} catch (Exception e) {
-			throw new XxxCustomException(ErrorCode.DB_DELETE_ERROR, "【" + ${firstName} + "】删除失败", e);
+			throw new XxxCustomException(ErrorCodeEnum.DB_DELETE_ERROR, "【" + ${firstName} + "】删除失败", e);
     	}
     }
     
@@ -108,7 +108,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     	try {
 	    	return ${smallClassName}Mapper.get${className}(map);
 		} catch (Exception e) {
-			throw new XxxCustomException(ErrorCode.DB_SELECT_ERROR, "【" + map + "】查询单个失败", e);
+			throw new XxxCustomException(ErrorCodeEnum.DB_SELECT_ERROR, "【" + map + "】查询单个失败", e);
 		}
     }
     
@@ -125,7 +125,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     	try {
 	    	return ${smallClassName}Mapper.list${className}(map);
 		} catch (Exception e) {
-			throw new XxxCustomException(ErrorCode.DB_SELECT_ERROR, "【" + map + "】查询列表失败", e);
+			throw new XxxCustomException(ErrorCodeEnum.DB_SELECT_ERROR, "【" + map + "】查询列表失败", e);
 		}
     }
     
@@ -144,7 +144,7 @@ public class ${className}ServiceImpl implements ${className}Service {
 				${smallClassName}Mapper.batchInsert(page);
 			}
 		} catch (Exception e) {
-			throw new XxxCustomException(ErrorCode.DB_BATCH_ERROR, "批量保存失败", e);
+			throw new XxxCustomException(ErrorCodeEnum.DB_BATCH_ERROR, "批量保存失败", e);
 		}
     }
     
@@ -163,7 +163,7 @@ public class ${className}ServiceImpl implements ${className}Service {
 				${smallClassName}Mapper.batchUpdate(page);
 			}
 		} catch (Exception e) {
-			throw new XxxCustomException(ErrorCode.DB_BATCH_ERROR, "批量修改失败", e);
+			throw new XxxCustomException(ErrorCodeEnum.DB_BATCH_ERROR, "批量修改失败", e);
 		}
     }
     

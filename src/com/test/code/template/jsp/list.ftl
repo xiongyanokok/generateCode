@@ -163,7 +163,7 @@
 				dataType : 'json',
 				success : function(result) {
 					if (result.code == 'Y') {
-						callback(result.data);
+						callback(result);
 					} else {
 						alert(result.message);
 					}
