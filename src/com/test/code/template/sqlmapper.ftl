@@ -58,13 +58,20 @@
     	update ${tableName}
     	<set>
 			<#list list as item>
+			<#if item_index != 0 && item.columnName != "create_user_id" && item.columnName != "create_time" && item.columnName != "update_time">
 			<if test="${item.beanLable} != null">
     			${item.columnName} = ${r"#{"}${item.beanLable}${r"}"},
   			</if>
+  			</#if>
   			</#list>
     	</set>
     	<where>
-    		id = ${r"#{"}id${r"}"}
+    		<#list list as item>
+    		<#if item_index == 0>
+    		${item.columnName} = ${r"#{"}${item.beanLable}${r"}"}
+    		<#break>
+    		</#if>
+    		</#list>
     	</where>
   	</update>
   	
@@ -91,7 +98,7 @@
         from ${tableName}
         <where>
         	<#list list as item>
-        	<#if item.beanLable != "createUserId" && item.beanLable != "createTime" && item.beanLable != "updateUserId" && item.beanLable != "updateTime">
+        	<#if item_index != 0 && item.beanLable != "createUserId" && item.beanLable != "createTime" && item.beanLable != "updateUserId" && item.beanLable != "updateTime">
   			<if test="${item.beanLable} != null">
     			and ${item.columnName} = ${r"#{"}${item.beanLable}${r"}"}
   			</if>
@@ -108,12 +115,14 @@
   	
   	<!-- 批量保存 -->
 	<insert id="batchInsert" parameterType="java.util.List">
-		insert into ${tableName} (<include refid="Base_Column_List"/>)
+		insert into ${tableName} (<#list list as item><#if item.columnName == "update_time"><#break></#if><#if item_index != 0>, </#if>${item.columnName}</#list>)
 		values 
 		<foreach collection="list" index="index" item="item" separator=",">
 			<trim prefix="(" suffix=")" suffixOverrides=",">
 			<#list list as item>
+				<#if item.columnName != "update_time">
 				${r"#{item."}${item.beanLable}${r"}"},
+				</#if>
 			</#list>
 			</trim>
 		</foreach>
@@ -126,7 +135,7 @@
 			<set>
 		 <#list list as item>
      		<#if item_index != 0>
-     		<#if item.columnName != "create_user_id" && item.columnName != "create_time">
+     		<#if item.columnName != "create_user_id" && item.columnName != "create_time" && item.columnName != "update_time">
         		<if test="item.${item.beanLable} != null">
         			${item.columnName} = ${r"#{item."}${item.beanLable}${r"}"},
         		</if>
