@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ${basePackage}.enums.TrueFalseStatus;
-import ${basePackage}.exception.Assert;
+import ${basePackage}.common.Assert;
+import ${basePackage}.enums.TrueFalseStatusEnum;
 import ${basePackage}.model.${className};
 import ${basePackage}.service.${className}Service;
 
@@ -55,11 +55,9 @@ public class ${className}Controller extends BaseController {
 	@RequestMapping(value = "/query", method = { RequestMethod.POST })
 	@ResponseBody
 	public Map<String, Object> query() {
-		return pageInfoResult(new QueryCallback<${className}>() {
-			public List<${className}> query(Map<String, Object> map) {
-				// 查询条件
-				return ${smallClassName}Service.list${className}(map);
-			}
+		return pageInfoResult(map -> {
+			// 查询条件
+			return ${smallClassName}Service.list${className}(map);
 		});
 	}
 	
@@ -87,8 +85,7 @@ public class ${className}Controller extends BaseController {
 		${smallClassName}.setCreateUserId(getUserId());
 		${smallClassName}.setCreateTime(new Date());
 		${smallClassName}.setUpdateUserId(getUserId());
-		${smallClassName}.setUpdateTime(new Date());
-		${smallClassName}.setIsDelete(TrueFalseStatus.FALSE.getValue());
+		${smallClassName}.setIsDelete(TrueFalseStatusEnum.FALSE.getValue());
 		${smallClassName}Service.save(${smallClassName});
 		return buildSuccess("保存成功");
 	}
@@ -105,6 +102,7 @@ public class ${className}Controller extends BaseController {
 		Assert.notNull(${firstName}, "${firstName}为空");
 		${className} ${smallClassName} = ${smallClassName}Service.selectByPrimaryKey(${firstName});
 		Assert.notNull(${smallClassName}, "${firstName}【" + ${firstName} + "】不存在");
+		Assert.isTrue(!${smallClassName}.getIsDelete(), "id【" + id + "】已删除");
 		model.addAttribute("${smallClassName}", ${smallClassName});
 		return "${pageDir}/edit";
 	}
@@ -119,8 +117,10 @@ public class ${className}Controller extends BaseController {
 	@ResponseBody
 	public Map<String, Object> update(${className} ${smallClassName}) {
 		Assert.notNull(${smallClassName}, "修改数据为空");
+		${className} ${smallClassName}Info = ${smallClassName}Service.selectByPrimaryKey(${smallClassName}.get${firstNameUp}());
+		Assert.notNull(${smallClassName}Info, "${firstName}【" + ${smallClassName}.get${firstNameUp}() + "】不存在");
+		Assert.isTrue(!${smallClassName}Info.getIsDelete(), "${firstName}【" + ${smallClassName}.get${firstNameUp}() + "】已删除");
 		${smallClassName}.setUpdateUserId(getUserId());
-		${smallClassName}.setUpdateTime(new Date());
 		${smallClassName}Service.update(${smallClassName});
 		return buildSuccess("修改成功");
 	}
@@ -137,6 +137,7 @@ public class ${className}Controller extends BaseController {
 		Assert.notNull(${firstName}, "${firstName}为空");
 		${className} ${smallClassName} = ${smallClassName}Service.selectByPrimaryKey(${firstName});
 		Assert.notNull(${smallClassName}, "${firstName}【" + ${firstName} + "】不存在");
+		Assert.isTrue(!${smallClassName}.getIsDelete(), "id【" + id + "】已删除");
 		${smallClassName}Service.remove(${firstName});
 		return buildSuccess("删除成功");
 	}

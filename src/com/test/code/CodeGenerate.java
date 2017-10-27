@@ -84,11 +84,11 @@ public class CodeGenerate {
 					+ "Controller.java");
 		}
 		if (Boolean.valueOf((String) options.get("jsp"))) {
-			fprint("jsp/list.ftl",
+			fprint("jsphui/list.ftl",
 					baseDir + CodeConfig.get("jspDir") + modPath + getClassName(tabelName).toLowerCase(), "list.jsp");
-			fprint("jsp/save.ftl",
+			fprint("jsphui/save.ftl",
 					baseDir + CodeConfig.get("jspDir") + modPath + getClassName(tabelName).toLowerCase(), "add.jsp");
-			fprint("jsp/update.ftl", 
+			fprint("jsphui/update.ftl", 
 					baseDir + CodeConfig.get("jspDir") + modPath + getClassName(tabelName).toLowerCase(), "edit.jsp");
 		}
 	}

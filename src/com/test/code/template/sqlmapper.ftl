@@ -82,11 +82,9 @@
         from ${tableName}
         <where>
 			<#list list as item>
-			<#if item.beanLable != "createUserId" && item.beanLable != "createTime" && item.beanLable != "updateUserId" && item.beanLable != "updateTime">
   			<if test="${item.beanLable} != null">
     			and ${item.columnName} = ${r"#{"}${item.beanLable}${r"}"}
   			</if>
-  			</#if>
   			</#list>
         </where>
   	</select>
@@ -98,7 +96,7 @@
         from ${tableName}
         <where>
         	<#list list as item>
-        	<#if item_index != 0 && item.beanLable != "createUserId" && item.beanLable != "createTime" && item.beanLable != "updateUserId" && item.beanLable != "updateTime">
+        	<#if item_index != 0>
   			<if test="${item.beanLable} != null">
     			and ${item.columnName} = ${r"#{"}${item.beanLable}${r"}"}
   			</if>
@@ -134,12 +132,10 @@
 			update ${tableName}
 			<set>
 		 <#list list as item>
-     		<#if item_index != 0>
-     		<#if item.columnName != "create_user_id" && item.columnName != "create_time" && item.columnName != "update_time">
+     		<#if item_index != 0 && item.columnName != "create_user_id" && item.columnName != "create_time" && item.columnName != "update_time">
         		<if test="item.${item.beanLable} != null">
         			${item.columnName} = ${r"#{item."}${item.beanLable}${r"}"},
         		</if>
-     		</#if>
      		</#if>
    		</#list>
 			</set>
