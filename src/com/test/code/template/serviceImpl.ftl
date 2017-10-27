@@ -13,7 +13,7 @@ import ${basePackage}.exception.XxxException;
 import ${basePackage}.mapper.${className}Mapper;
 import ${basePackage}.model.${className};
 import ${basePackage}.service.${className}Service;
-import ${basePackage}.common.utils.ListPageUtil;
+import ${basePackage}.common.utils.ListPageUtils;
 
 /**
  * Service 实现
@@ -139,7 +139,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     public void batchSave(List<${className}> list) {
     	Assert.notEmpty(list, "批量保存数据为空");
     	try {
-			List<List<${className}>> pageList = ListPageUtil.listPage(list, 1000);
+			List<List<${className}>> pageList = ListPageUtils.listPage(list, 1000);
 			for (List<${className}> page : pageList) {
 				${smallClassName}Mapper.batchInsert(page);
 			}
@@ -158,7 +158,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     public void batchUpdate(List<${className}> list) {
     	Assert.notEmpty(list, "批量修改数据为空");
     	try {
-			List<List<${className}>> pageList = ListPageUtil.listPage(list, 1000);
+			List<List<${className}>> pageList = ListPageUtils.listPage(list, 1000);
 			for (List<${className}> page : pageList) {
 				${smallClassName}Mapper.batchUpdate(page);
 			}
