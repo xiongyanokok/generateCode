@@ -56,7 +56,7 @@
 	$(function(){
 		$("#form").validate({
 			rules:{
-				xx:{
+				name:{
 					required:true
 				}
 			},
@@ -64,10 +64,15 @@
 			focusCleanup:true,
 			success:"valid",
 			submitHandler:function(form){
-				$(form).ajaxSubmit();
-				var index = parent.layer.getFrameIndex(window.name);
-				parent.dataTable.fnDraw();
-				parent.layer.close(index);
+				$(form).ajaxSubmit(function(data) {
+					if (data.code == 'Y') {
+						parent.dataTable.fnDraw();
+						var index = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index);
+					} else {
+						layer.alert(data.message);
+					}
+				});
 			}
 		});
 	});
