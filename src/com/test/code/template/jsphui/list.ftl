@@ -88,8 +88,8 @@
 	            	"bSortable" : false,
 	            	"sWidth" : "10%",
 	            	"mRender": function(data, type, full) {
-	            		var button = "<a class=\"btn btn-success radius size-MINI\" onclick=\"edit("+data.${firstName}+")\">修改</a>"+
-	            			" <a class=\"btn btn-danger radius size-MINI\" onclick=\"del("+data.${firstName}+")\">删除</a>";
+	            		var button = "<span class=\"btn btn-success radius size-MINI\" onclick=\"edit("+data.${firstName}+")\">修改</span>"+
+	            			" <span class=\"btn btn-danger radius size-MINI\" onclick=\"del("+data.${firstName}+")\">删除</span>";
 	            		return button;
 	            	}
 	            }
@@ -97,6 +97,7 @@
             "oLanguage" : {
                 "sProcessing" : "<img src=\"/static/h-ui.admin/images/loading.gif\"/>正在加载中......",
                 "sLengthMenu" : "每页显示 _MENU_ 条记录",
+                "sZeroRecords" : "无数据！",
                 "sEmptyTable" : "无数据！",
                 "sInfo" : "总共 _PAGES_ 页，当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
                 "oPaginate" : {
@@ -147,6 +148,8 @@
 				success : function(result) {
 					if (result.code == "Y") {
 						callback(result);
+					} else {
+						layer.alert(result.message);
 					}
 				}
 			});

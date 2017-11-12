@@ -25,7 +25,13 @@
 			<div class="row cl">
 				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>${item.beanLable}：</label>
 				<div class="formControls col-xs-8 col-sm-8">
+					<#if item.beanLable == "remark">
+					<textarea class="textarea" id="remark" name="remark" placeholder="备注" maxlength="200"></textarea>
+					<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+					</#if>
+					<#if item.beanLable == "remark">
 					<input type="text" class="input-text" id="${item.beanLable}" name="${item.beanLable}" placeholder="${item.beanLable}" />
+					</#if>
 				</div>
 			</div>
 			</#if>
@@ -64,13 +70,13 @@
 			focusCleanup:true,
 			success:"valid",
 			submitHandler:function(form){
-				$(form).ajaxSubmit(function(data) {
-					if (data.code == "Y") {
+				$(form).ajaxSubmit(function(result) {
+					if (result.code == "Y") {
 						parent.dataTable.fnDraw();
 						var index = parent.layer.getFrameIndex(window.name);
 						parent.layer.close(index);
 					} else {
-						layer.alert(data.message);
+						layer.alert(result.message);
 					}
 				});
 			}
