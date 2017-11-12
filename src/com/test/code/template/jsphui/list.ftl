@@ -27,10 +27,10 @@
 		</div>
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
     		<span class="l">
-    			<a href="javascript:;" onclick="add()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加xx </a>
+    			<span onclick="add()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加xx </span>
     		</span>
     		<span class="r">
-    			<a href="javascript:;" onclick="query()" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i> 查询xx </a>
+    			<span onclick="query()" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i> 查询xx </span>
     		</span>
   		</div>
   		<table id="table" class="table table-border table-bordered table-striped table-hover table-bg"/>
