@@ -1,18 +1,16 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<link rel="stylesheet" type="text/css" href="/static/h-ui/css/H-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/H-ui.admin.css" />
-<link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
-<link rel="stylesheet" type="text/css" href="/static/h-ui.admin/skin/default/skin.css" id="skin" />
-<link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/static/h-ui/css/H-ui.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/static/h-ui.admin/css/H-ui.admin.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/lib/Hui-iconfont/1.0.8/iconfont.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/static/h-ui.admin/skin/default/skin.css}" id="skin" />
+<link rel="stylesheet" type="text/css" th:href="@{/static/h-ui.admin/css/style.css}" />
 <title>xx管理</title>
 </head>
 <body>
@@ -38,16 +36,16 @@
 </body>
 </html>
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script> 
-<script type="text/javascript" src="/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" th:src="@{/lib/jquery/1.9.1/jquery.min.js}"></script> 
+<script type="text/javascript" th:src="@{/lib/layer/2.4/layer.js}"></script>
+<script type="text/javascript" th:src="@{/static/h-ui/js/H-ui.min.js}"></script> 
+<script type="text/javascript" th:src="@{/static/h-ui.admin/js/H-ui.admin.js}"></script>
 <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
-<script type="text/javascript" src="/lib/laypage/1.2/laypage.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" th:src="@{/lib/datatables/1.10.0/jquery.dataTables.min.js}"></script> 
+<script type="text/javascript" th:src="@{/lib/laypage/1.2/laypage.js}"></script>
+<script th:inline="javascript">
 	var dataTable;
 	$(function(){
 		dataTable = $("#table").dataTable( {
@@ -57,7 +55,7 @@
 			"bAutoWidth" : false, //自适应宽度
 			"bProcessing" : true, // 加载层
 	        "bServerSide" : true, // 服务器获取数据
-	        "aaSorting" : [[ 1, "desc" ]], //默认第几个排序
+	        "aaSorting" : [ 1, "desc" ], //默认第几个排序
 			"sAjaxSource" : "/admin/${pageDir}/query",
 			"fnServerData" : retrieveData,
 			"fnDrawCallback" : function(){
@@ -182,7 +180,7 @@
 				success : function(result) {
 					if (result.code == "Y") {
 						dataTable.fnDraw();
-						layer.msg("删除成功", {icon:5, time:1000});
+						layer.msg("删除成功", {icon:6, time:1000});
 					} else {
 						layer.alert(result.message);
 					}

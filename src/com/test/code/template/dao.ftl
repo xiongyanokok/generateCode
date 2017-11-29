@@ -17,6 +17,7 @@ public interface ${className}Mapper {
      * 根据主键查询
      *
      * @param id
+     * @return
      */
     ${className} selectByPrimaryKey(Integer id);
 

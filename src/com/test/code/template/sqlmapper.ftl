@@ -113,14 +113,12 @@
   	
   	<!-- 批量保存 -->
 	<insert id="batchInsert" parameterType="java.util.List">
-		insert into ${tableName} (<#list list as item><#if item.columnName == "update_time"><#break></#if><#if item_index != 0>, </#if>${item.columnName}</#list>)
+		insert into ${tableName} (<include refid="Base_Column_List" />)
 		values 
 		<foreach collection="list" index="index" item="item" separator=",">
 			<trim prefix="(" suffix=")" suffixOverrides=",">
 			<#list list as item>
-				<#if item.columnName != "update_time">
 				${r"#{item."}${item.beanLable}${r"}"},
-				</#if>
 			</#list>
 			</trim>
 		</foreach>
