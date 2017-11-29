@@ -72,24 +72,23 @@ public class CodeGenerate {
 			fprint("dao.ftl", baseDir + CodeConfig.get("daoDir") + modPath, getClassName(tabelName) + "Mapper.java");
 		}
 		if (Boolean.valueOf((String) options.get("service"))) {
-			fprint("service.ftl", baseDir + CodeConfig.get("serviceDir") + modPath, getClassName(tabelName)
-					+ "Service.java");
+			fprint("service.ftl", baseDir + CodeConfig.get("serviceDir") + modPath, getClassName(tabelName) + "Service.java");
 		}
 		if (Boolean.valueOf((String) options.get("serviceImpl"))) {
-			fprint("serviceImpl.ftl", baseDir + CodeConfig.get("serviceImplDir") + modPath, getClassName(tabelName)
-					+ "ServiceImpl.java");
+			fprint("serviceImpl.ftl", baseDir + CodeConfig.get("serviceImplDir") + modPath, getClassName(tabelName) + "ServiceImpl.java");
 		}
 		if (Boolean.valueOf((String) options.get("controller"))) {
-			fprint("controller.ftl", baseDir + CodeConfig.get("actionDir") + modPath, getClassName(tabelName)
-					+ "Controller.java");
+			fprint("controller.ftl", baseDir + CodeConfig.get("actionDir") + modPath, getClassName(tabelName) + "Controller.java");
 		}
 		if (Boolean.valueOf((String) options.get("jsp"))) {
-			fprint("jsphui/list.ftl",
-					baseDir + CodeConfig.get("jspDir") + modPath + getClassName(tabelName).toLowerCase(), "list.jsp");
-			fprint("jsphui/save.ftl",
-					baseDir + CodeConfig.get("jspDir") + modPath + getClassName(tabelName).toLowerCase(), "add.jsp");
-			fprint("jsphui/update.ftl", 
-					baseDir + CodeConfig.get("jspDir") + modPath + getClassName(tabelName).toLowerCase(), "edit.jsp");
+			fprint("jsp/list.ftl", baseDir + CodeConfig.get("jspDir") + modPath + getClassName(tabelName).toLowerCase(), "list.jsp");
+			fprint("jsp/save.ftl", baseDir + CodeConfig.get("jspDir") + modPath + getClassName(tabelName).toLowerCase(), "add.jsp");
+			fprint("jsp/update.ftl", baseDir + CodeConfig.get("jspDir") + modPath + getClassName(tabelName).toLowerCase(), "edit.jsp");
+		}
+		if (Boolean.valueOf((String) options.get("html"))) {
+			fprint("html/list.ftl", baseDir + CodeConfig.get("htmlDir") + modPath + getClassName(tabelName).toLowerCase(), "list.html");
+			fprint("html/save.ftl", baseDir + CodeConfig.get("htmlDir") + modPath + getClassName(tabelName).toLowerCase(), "add.html");
+			fprint("html/update.ftl", baseDir + CodeConfig.get("htmlDir") + modPath + getClassName(tabelName).toLowerCase(), "edit.html");
 		}
 	}
 

@@ -55,6 +55,7 @@
 														serviceImpl<input type="checkbox" name="serviceImpl"       id="serviceImpl_${obj}" checked="checked">
 														controller<input type="checkbox" name="controller"       id="controller_${obj}" checked="checked">
 														jsp<input type="checkbox" name="jsp"       id="jsp_${obj}" checked="checked">
+														html<input type="checkbox" name="html"       id="html_${obj}" checked="checked">
 														</td>
 														<td>
 														<input type="text" id="mod_${obj}">
@@ -106,6 +107,7 @@
 				    'serviceImpl':$('#serviceImpl_'+tableName).is(':checked'),
 				    'controller':$('#controller_'+tableName).is(':checked'),
 				    'jsp':$('#jsp_'+tableName).is(':checked'),
+				    'html':$('#html_'+tableName).is(':checked'),
 				    'mod':$('#mod_'+tableName).val()
 			       },
 			type : 'POST',
