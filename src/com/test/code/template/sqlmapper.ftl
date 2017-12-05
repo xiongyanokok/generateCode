@@ -75,7 +75,7 @@
     	</where>
   	</update>
   	
-	<!-- 根据map查询单条数据 -->
+	<!-- 根据map查询 -->
   	<select id="get${className}" resultMap="BaseResultMap" parameterType="java.util.Map">
   		select
         <include refid="Base_Column_List"/>
@@ -89,7 +89,7 @@
         </where>
   	</select>
   
-  	<!-- 根据map查询集合数据 -->
+  	<!-- 根据map查询 -->
   	<select id="list${className}" resultMap="BaseResultMap" parameterType="java.util.Map">
   		select
         <include refid="Base_Column_List"/>

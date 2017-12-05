@@ -36,7 +36,7 @@ public interface ${className}Mapper {
     void update(${className} ${smallClassName});
 
     /**
-     * 根据map查询单条数据
+     * 根据map查询
      * 
      * @param map
      * @return
@@ -44,7 +44,7 @@ public interface ${className}Mapper {
     ${className} get${className}(Map<String, Object> map);
     
     /**
-     * 根据map查询集合数据
+     * 根据map查询
      * 
      * @param map
      * @return

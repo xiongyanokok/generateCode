@@ -1,5 +1,6 @@
 package ${basePackage}.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +45,26 @@ public class ${className}ServiceImpl implements ${className}Service {
 		}
     }
     
+    /**
+     * 根据ID查询
+     *
+     * @param ${firstName}
+     * @return
+     * @throws XxxException
+     */
+    @Override
+    public ${className} get${className}ById(Integer ${firstName}) {
+    	Assert.notNull(${firstName}, "${firstName}为空");
+    	try {
+    		Map<String, Object> map = new HashMap<>();
+    		map.put("id", ${firstName});
+    		map.put("isDelete", TrueFalseStatusEnum.FALSE.getValue());
+	    	return ${smallClassName}Mapper.get${className}(map);
+		} catch (Exception e) {
+			throw new XxxException(ErrorCodeEnum.DB_SELECT_ERROR, "【" + ${firstName} + "】查询失败", e);
+		}
+    }
+    
 	/**
      * 保存数据
      *
@@ -77,26 +98,26 @@ public class ${className}ServiceImpl implements ${className}Service {
     }
     
     /**
-     * 根据主键逻辑删除数据
+     * 删除数据
      * 
-     * @param ${firstName}
+     * @param ${smallClassName}
      * @throws XxxException
      */
     @Override
-    public void remove(Integer ${firstName}) {
-    	Assert.notNull(${firstName}, "${firstName}为空");
+    public void remove(${className} ${smallClassName}) {
+    	Assert.notNull(${smallClassName}, "删除数据为空");
 		try {
-    		${className} ${smallClassName} = new ${className}();
-    		${smallClassName}.set${firstNameUp}(${firstName});
-    		${smallClassName}.setIsDelete(TrueFalseStatusEnum.TRUE.getValue());
-    		${smallClassName}Mapper.update(${smallClassName});
+    		${className} delete${className} = new ${className}();
+    		delete${className}.set${firstNameUp}(${smallClassName}.get${firstNameUp}());
+    		delete${className}.setIsDelete(TrueFalseStatusEnum.TRUE.getValue());
+    		${smallClassName}Mapper.update(delete${className});
 		} catch (Exception e) {
-			throw new XxxException(ErrorCodeEnum.DB_DELETE_ERROR, "【" + ${firstName} + "】删除失败", e);
+			throw new XxxException(ErrorCodeEnum.DB_DELETE_ERROR, "【" + ${smallClassName}.toString() + "】删除失败", e);
     	}
     }
     
     /**
-     * 根据map查询单个数据
+     * 根据map查询
      * 
      * @param map
      * @return
@@ -108,12 +129,12 @@ public class ${className}ServiceImpl implements ${className}Service {
     	try {
 	    	return ${smallClassName}Mapper.get${className}(map);
 		} catch (Exception e) {
-			throw new XxxException(ErrorCodeEnum.DB_SELECT_ERROR, "【" + map + "】查询单个失败", e);
+			throw new XxxException(ErrorCodeEnum.DB_SELECT_ERROR, "【" + map + "】查询对象失败", e);
 		}
     }
     
     /**
-     * 根据map查询集合数据
+     * 根据map查询
      * 
      * @param map
      * @return

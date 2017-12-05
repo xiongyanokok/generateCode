@@ -22,6 +22,14 @@ public interface ${className}Service {
     ${className} selectByPrimaryKey(Integer ${firstName});
     
     /**
+     * 根据ID查询
+     *
+     * @param ${firstName}
+     * @return
+     */
+    ${className} get${className}ById(Integer ${firstName});
+    
+    /**
      * 保存数据
      *
      * @param ${smallClassName}
@@ -36,14 +44,14 @@ public interface ${className}Service {
     void update(${className} ${smallClassName});
     
     /**
-     * 根据主键逻辑删除数据
+     * 删除数据
      * 
-     * @param ${firstName}
+     * @param ${smallClassName}
      */
-    void remove(Integer ${firstName});
+    void remove(${className} ${smallClassName});
     
     /**
-     * 根据map查询单个数据
+     * 根据map查询
      * 
      * @param map
      * @return
@@ -51,7 +59,7 @@ public interface ${className}Service {
     ${className} get${className}(Map<String, Object> map);
     
     /**
-     * 根据map查询集合数据
+     * 根据map查询
      * 
      * @param map
      * @return

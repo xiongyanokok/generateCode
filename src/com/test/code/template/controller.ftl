@@ -84,8 +84,10 @@ public class ${className}Controller extends BaseController {
 		${smallClassName}.setCreateUserId(getUserId());
 		${smallClassName}.setCreateTime(new Date());
 		${smallClassName}.setUpdateUserId(getUserId());
+		${smallClassName}.setUpdateTime(new Date());
 		${smallClassName}.setIsDelete(TrueFalseStatusEnum.FALSE.getValue());
 		${smallClassName}Service.save(${smallClassName});
+		logger.info("【{}】保存成功", ${smallClassName});
 		return buildSuccess("保存成功");
 	}
 	
@@ -97,11 +99,10 @@ public class ${className}Controller extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/edit", method = { RequestMethod.GET })
-	public String edit(Model model, @RequestParam(value = "${firstName}", required = true) Integer ${firstName}) {
+	public String edit(Model model, Integer ${firstName}) {
 		Assert.notNull(${firstName}, "${firstName}为空");
-		${className} ${smallClassName} = ${smallClassName}Service.selectByPrimaryKey(${firstName});
+		${className} ${smallClassName} = ${smallClassName}Service.get${className}ById(${firstName});
 		Assert.notNull(${smallClassName}, "${firstName}【" + ${firstName} + "】不存在");
-		Assert.isTrue(!${smallClassName}.getIsDelete(), "id【" + id + "】已删除");
 		model.addAttribute("${smallClassName}", ${smallClassName});
 		return "${pageDir}/edit";
 	}
@@ -116,11 +117,12 @@ public class ${className}Controller extends BaseController {
 	@ResponseBody
 	public Map<String, Object> update(${className} ${smallClassName}) {
 		Assert.notNull(${smallClassName}, "修改数据为空");
-		${className} ${smallClassName}Info = ${smallClassName}Service.selectByPrimaryKey(${smallClassName}.get${firstNameUp}());
+		${className} ${smallClassName}Info = ${smallClassName}Service.get${className}ById(${smallClassName}.get${firstNameUp}());
 		Assert.notNull(${smallClassName}Info, "${firstName}【" + ${smallClassName}.get${firstNameUp}() + "】不存在");
-		Assert.isTrue(!${smallClassName}Info.getIsDelete(), "${firstName}【" + ${smallClassName}.get${firstNameUp}() + "】已删除");
 		${smallClassName}.setUpdateUserId(getUserId());
+		${smallClassName}.setUpdateTime(new Date());
 		${smallClassName}Service.update(${smallClassName});
+		logger.info("【{}】修改成功", ${smallClassName});
 		return buildSuccess("修改成功");
 	}
 	
@@ -132,12 +134,12 @@ public class ${className}Controller extends BaseController {
 	 */
 	@RequestMapping(value = "/delete", method = { RequestMethod.POST })
 	@ResponseBody
-	public Map<String, Object> delete(@RequestParam(value = "${firstName}", required = true) Integer ${firstName}) {
+	public Map<String, Object> delete(Integer ${firstName}) {
 		Assert.notNull(${firstName}, "${firstName}为空");
-		${className} ${smallClassName} = ${smallClassName}Service.selectByPrimaryKey(${firstName});
+		${className} ${smallClassName} = ${smallClassName}Service.get${className}ById(${firstName});
 		Assert.notNull(${smallClassName}, "${firstName}【" + ${firstName} + "】不存在");
-		Assert.isTrue(!${smallClassName}.getIsDelete(), "id【" + id + "】已删除");
-		${smallClassName}Service.remove(${firstName});
+		${smallClassName}Service.remove(${smallClassName});
+		logger.info("【{}】删除成功", ${smallClassName});
 		return buildSuccess("删除成功");
 	}
 	

@@ -70,6 +70,7 @@
 				$(form).ajaxSubmit(function(result) {
 					if (result.code == "Y") {
 						parent.dataTable.fnDraw();
+						parent.layer.msg("保存成功", {icon:6, time:1000});
 						var index = parent.layer.getFrameIndex(window.name);
 						parent.layer.close(index);
 					} else {
