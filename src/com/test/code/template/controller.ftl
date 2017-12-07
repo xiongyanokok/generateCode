@@ -102,7 +102,7 @@ public class ${className}Controller extends BaseController {
 	public String edit(Model model, Integer ${firstName}) {
 		Assert.notNull(${firstName}, "${firstName}为空");
 		${className} ${smallClassName} = ${smallClassName}Service.get${className}ById(${firstName});
-		Assert.notNull(${smallClassName}, "${firstName}【" + ${firstName} + "】不存在");
+		Assert.notNull(${smallClassName}, "数据不存在");
 		model.addAttribute("${smallClassName}", ${smallClassName});
 		return "${pageDir}/edit";
 	}
@@ -118,7 +118,7 @@ public class ${className}Controller extends BaseController {
 	public Map<String, Object> update(${className} ${smallClassName}) {
 		Assert.notNull(${smallClassName}, "修改数据为空");
 		${className} ${smallClassName}Info = ${smallClassName}Service.get${className}ById(${smallClassName}.get${firstNameUp}());
-		Assert.notNull(${smallClassName}Info, "${firstName}【" + ${smallClassName}.get${firstNameUp}() + "】不存在");
+		Assert.notNull(${smallClassName}Info, "数据不存在");
 		${smallClassName}.setUpdateUserId(getUserId());
 		${smallClassName}.setUpdateTime(new Date());
 		${smallClassName}Service.update(${smallClassName});
@@ -137,7 +137,7 @@ public class ${className}Controller extends BaseController {
 	public Map<String, Object> delete(Integer ${firstName}) {
 		Assert.notNull(${firstName}, "${firstName}为空");
 		${className} ${smallClassName} = ${smallClassName}Service.get${className}ById(${firstName});
-		Assert.notNull(${smallClassName}, "${firstName}【" + ${firstName} + "】不存在");
+		Assert.notNull(${smallClassName}, "数据不存在");
 		${smallClassName}Service.remove(${smallClassName});
 		logger.info("【{}】删除成功", ${smallClassName});
 		return buildSuccess("删除成功");

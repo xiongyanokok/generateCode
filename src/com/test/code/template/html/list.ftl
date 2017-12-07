@@ -76,8 +76,8 @@
 	                "bSortable": true,
 				    "sWidth" : "5%"
             	},</#if></#list> {
-	                "mData" : "updateTime",
-	                "sTitle" : "修改时间",
+	                "mData" : "createTime",
+	                "sTitle" : "创建时间",
 	                "bSortable": true,
 	                "sWidth" : "8%"
 	            }, {
