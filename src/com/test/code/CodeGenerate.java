@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.util.StringUtils;
@@ -93,14 +94,20 @@ public class CodeGenerate {
 	}
 
 	public static List<Columns> getTableInfo(JdbcTemplate jdbc, String tableName) {
-		String sql = CodeConfig.get("sql_" + CodeConfig.get("db_name"));
-		List<Columns> list = jdbc.query(sql, new Object[] { CodeConfig.get("db_name"), tableName }, new RowMapper<Columns>() {
+		String sql = CodeConfig.get("sql_mysql");
+		BasicDataSource dataSource = (BasicDataSource)jdbc.getDataSource();
+		String url = dataSource.getUrl();
+		if (url.contains("?")) {
+			url = url.substring(0, dataSource.getUrl().indexOf('?'));
+		}
+		// 数据库名称
+		String dbName = url.substring(url.lastIndexOf('/') + 1);
+		List<Columns> list = jdbc.query(sql, new Object[] { dbName, tableName }, new RowMapper<Columns>() {
 			@Override
 			public Columns mapRow(ResultSet rs, int i) throws SQLException {
 				String columnName = rs.getString(2);
-				Columns c = new Columns(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), null == rs
-						.getString(5) ? "" : rs.getString(5), toBeanLabel(columnName), rs.getString(6));
-				return c;
+				return new Columns(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), 
+						null == rs.getString(5) ? "" : rs.getString(5), toBeanLabel(columnName), rs.getString(6));
 			}
 		});
 		return list;
@@ -128,10 +135,6 @@ public class CodeGenerate {
 			i++;
 		}
 		return beanLable.toString();
-	}
-
-	private static void sprint(String name) {
-		fu.print(name, root);
 	}
 
 	private static void fprint(String templateName, String baseDir, String outFileName) {

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -18,7 +19,6 @@ import org.springframework.util.StringUtils;
 import com.app.dao.demo.DemoDAO;
 import com.app.pojo.Demo;
 import com.common.core.pojo.Pager;
-import com.test.code.CodeConfig;
 import com.test.code.CodeGenerate;
 import com.test.code.Columns;
 
@@ -29,6 +29,9 @@ public class DemoService {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private BasicDataSource dataSource;
 
 	public void queryByPage(Pager<Demo> page, Map<String, Object> params) {
 		List<Demo> list = demoDAO.queryByPage(params, page.getStart(), page.getPageSize());
@@ -107,7 +110,6 @@ public class DemoService {
 	 * @param demo
 	 */
 	private void updateDB(Demo demo) {
-		System.out.println("real update db..." + demo.getName());
 	}
 
 	/**
@@ -121,7 +123,6 @@ public class DemoService {
 	}
 
 	private Demo getFromDB(int id, String name) {
-		System.out.println("real querying db...id=" + id + "    name=" + name);
 		return new Demo(id, name);
 	}
 
@@ -134,17 +135,23 @@ public class DemoService {
 	 * @return
 	 */
 	public List<String> getAllTable(String tableName) {
-		List<Object> p = new ArrayList<Object>();
-		StringBuffer sql = new StringBuffer("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ?");
-		p.add(CodeConfig.get("db_name"));
+		List<Object> p = new ArrayList<>();
+		StringBuilder sql = new StringBuilder("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ?");
+		String url = dataSource.getUrl();
+		if (url.contains("?")) {
+			url = url.substring(0, dataSource.getUrl().indexOf('?'));
+		}
+		// 数据库名称
+		String dbName = url.substring(url.lastIndexOf('/') + 1);
+		p.add(dbName);
+		
 		if (StringUtils.hasText(tableName)) {
 			tableName = tableName.toUpperCase();
-			sql.append("where table_name like ? ");
+			sql.append(" and table_name like ? ");
 			p.add("%" + tableName + "%");
 		}
 		sql.append(" ORDER BY TABLE_NAME asc ");
-		List<String> list = jdbcTemplate.queryForList(sql.toString(), String.class, p.toArray());
-		return list;
+		return jdbcTemplate.queryForList(sql.toString(), String.class, p.toArray());
 	}
 
 	public List<Columns> getTableInfo(String tableName) {

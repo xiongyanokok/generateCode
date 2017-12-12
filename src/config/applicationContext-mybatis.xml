@@ -7,8 +7,8 @@
 	">
 
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
-        <property name="dataSource"      ref="dataSource${debug}" />  
-        <property name="configLocation"  value="classpath:config/sqlMapConfig.xml" />
+        <property name="dataSource" ref="dataSource" />  
+        <property name="configLocation" value="classpath:config/sqlMapConfig.xml" />
         <property name="mapperLocations" value="classpath*:config/${db.name}/**/*.xml" />
         <property name="typeHandlersPackage" value="com.tx.core.mybatis.handler"></property>  
     </bean> 
