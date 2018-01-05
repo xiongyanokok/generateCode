@@ -17,11 +17,11 @@
 	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> xx管理 <span class="c-gray en">&gt;</span> xx列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="pd-20">
 		<div class="text-l">
-			条件A：<input type="text" class="input-text" style="width: 200px" id="" name="" />
-			<span style="padding-right: 50px;"></span>
-			条件B：<input type="text" class="input-text" style="width: 200px" id="" name="" />
-			<span style="padding-right: 50px;"></span>
-			条件C：<input type="text" class="input-text" style="width: 200px" id="" name="" />
+			条件A：<input type="text" class="input-text" style="width: 15%;" id="" name="" />
+			<span style="padding-right: 5%;"></span>
+			条件B：<input type="text" class="input-text" style="width: 15%;" id="" name="" />
+			<span style="padding-right: 5%;"></span>
+			条件C：<input type="text" class="input-text" style="width: 15%;" id="" name="" />
 		</div>
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
     		<span class="l">
@@ -40,6 +40,7 @@
 <script type="text/javascript" th:src="@{/lib/layer/2.4/layer.js}"></script>
 <script type="text/javascript" th:src="@{/static/h-ui/js/H-ui.min.js}"></script> 
 <script type="text/javascript" th:src="@{/static/h-ui.admin/js/H-ui.admin.js}"></script>
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
 <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
@@ -55,6 +56,7 @@
 			"bAutoWidth" : false, //自适应宽度
 			"bProcessing" : true, // 加载层
 	        "bServerSide" : true, // 服务器获取数据
+	        "iDisplayLength": page_size, // 每页显示条数
 	        "aaSorting" : [ 1, "desc" ], //默认第几个排序
 			"sAjaxSource" : "/admin/${pageDir}/query",
 			"fnServerData" : retrieveData,
