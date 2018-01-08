@@ -38,6 +38,7 @@ public class ${className}Controller extends BaseController {
 	/**
 	 * 进入列表页面
 	 * 
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "/list", method = { RequestMethod.GET })
