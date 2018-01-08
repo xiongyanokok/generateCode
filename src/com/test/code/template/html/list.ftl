@@ -57,7 +57,7 @@
 			"bProcessing" : true, // 加载层
 	        "bServerSide" : true, // 服务器获取数据
 	        "iDisplayLength": page_size, // 每页显示条数
-	        "aaSorting" : [ 1, "desc" ], //默认第几个排序
+	        "aaSorting" : [ 0, "desc" ], //默认第几个排序
 			"sAjaxSource" : "/admin/${pageDir}/query",
 			"fnServerData" : retrieveData,
 			"fnDrawCallback" : function(){
