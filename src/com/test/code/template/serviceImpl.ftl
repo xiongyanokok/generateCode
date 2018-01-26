@@ -56,7 +56,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     public ${className} get${className}ById(Integer ${firstName}) {
     	Assert.notNull(${firstName}, "${firstName}为空");
     	try {
-    		Map<String, Object> map = new HashMap<>();
+    		Map<String, Object> map = new HashMap<>(2);
     		map.put("id", ${firstName});
     		map.put("isDelete", TrueFalseStatusEnum.FALSE.getValue());
 	    	return ${smallClassName}Mapper.get${className}(map);
