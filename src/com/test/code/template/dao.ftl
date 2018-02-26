@@ -13,14 +13,6 @@ import ${basePackage}.model.${className};
  */
 public interface ${className}Mapper {
 
-	/**
-     * 根据主键查询
-     *
-     * @param id
-     * @return
-     */
-    ${className} selectByPrimaryKey(Integer id);
-
     /**
      * 新增数据库记录
      *

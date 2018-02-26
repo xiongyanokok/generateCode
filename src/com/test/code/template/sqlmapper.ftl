@@ -17,19 +17,6 @@
   		<#list list as item>${item.columnName}<#if item_has_next>, </#if></#list>
   	</sql>
   	
-  	<!-- 根据主键查询 -->
-  	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    	select 
-    	<include refid="Base_Column_List" />
-    	from ${tableName}
-    	<#list list as item>
-		     <#if item_index == 0>
-		where ${item.columnName} = ${r"#{"}${item.beanLable}${r"}"}
-             <#break>
-             </#if>
-	    </#list>
-  	</select>
-  	
   	<!-- 新增数据库记录 -->
   	<insert id="insert" parameterType="${basePackage}.model.${className}">
     	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="<#list list as item><#if item_index == 0>${item.beanLable}<#break></#if></#list>">

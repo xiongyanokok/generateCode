@@ -13,14 +13,6 @@ import ${basePackage}.model.${className};
  */
 public interface ${className}Service {
 
-	/**
-     * 根据主键查询
-     *
-     * @param ${firstName}
-     * @return
-     */
-    ${className} selectByPrimaryKey(Integer ${firstName});
-    
     /**
      * 根据ID查询
      *

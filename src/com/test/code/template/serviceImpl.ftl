@@ -28,23 +28,6 @@ public class ${className}ServiceImpl implements ${className}Service {
     @Autowired
 	private ${className}Mapper ${smallClassName}Mapper;
 	
-	/**
-     * 根据主键查询
-     *
-     * @param ${firstName}
-     * @return
-     * @throws XxxException
-     */
-    @Override
-    public ${className} selectByPrimaryKey(Integer ${firstName}) {
-    	Assert.notNull(${firstName}, "${firstName}为空");
-    	try {
-	    	return ${smallClassName}Mapper.selectByPrimaryKey(${firstName});
-		} catch (Exception e) {
-			throw new XxxException(ErrorCodeEnum.DB_SELECT_ERROR, "【" + ${firstName} + "】查询失败", e);
-		}
-    }
-    
     /**
      * 根据ID查询
      *
