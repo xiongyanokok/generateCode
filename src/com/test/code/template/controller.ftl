@@ -3,8 +3,6 @@ package ${basePackage}.controller;
 import java.util.Date;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +15,8 @@ import ${basePackage}.enums.TrueFalseStatusEnum;
 import ${basePackage}.model.${className};
 import ${basePackage}.service.${className}Service;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Controller
  * 
@@ -25,12 +25,8 @@ import ${basePackage}.service.${className}Service;
  */
 @Controller
 @RequestMapping(value = "/admin/${pageDir}", produces = { "application/json; charset=UTF-8" })
+@Slf4j
 public class ${className}Controller extends BaseController {
-
-	/**
-	 * logger
-	 */
-	private static final Logger logger = LoggerFactory.getLogger(${className}Controller.class);
 
     @Autowired
 	private ${className}Service ${smallClassName}Service;
@@ -56,7 +52,7 @@ public class ${className}Controller extends BaseController {
 	public Map<String, Object> query() {
 		return pageInfoResult(map -> {
 			// 查询条件
-			return ${smallClassName}Service.list${className}(map);
+			return ${smallClassName}Service.listByMap(map);
 		});
 	}
 	
@@ -87,7 +83,7 @@ public class ${className}Controller extends BaseController {
 		${smallClassName}.setUpdateTime(new Date());
 		${smallClassName}.setIsDelete(TrueFalseStatusEnum.FALSE.getValue());
 		${smallClassName}Service.save(${smallClassName});
-		logger.info("【{}】保存成功", ${smallClassName});
+		log.info("【{}】保存成功", ${smallClassName});
 		return buildSuccess("保存成功");
 	}
 	
@@ -101,7 +97,7 @@ public class ${className}Controller extends BaseController {
 	@RequestMapping(value = "/edit", method = { RequestMethod.GET })
 	public String edit(Model model, Integer ${firstName}) {
 		Assert.notNull(${firstName}, "${firstName}为空");
-		${className} ${smallClassName} = ${smallClassName}Service.get${className}ById(${firstName});
+		${className} ${smallClassName} = ${smallClassName}Service.getById(${firstName});
 		Assert.notNull(${smallClassName}, "数据不存在");
 		model.addAttribute("${smallClassName}", ${smallClassName});
 		return "${pageDir}/edit";
@@ -117,12 +113,12 @@ public class ${className}Controller extends BaseController {
 	@ResponseBody
 	public Map<String, Object> update(${className} ${smallClassName}) {
 		Assert.notNull(${smallClassName}, "修改数据为空");
-		${className} ${smallClassName}Info = ${smallClassName}Service.get${className}ById(${smallClassName}.get${firstNameUp}());
+		${className} ${smallClassName}Info = ${smallClassName}Service.getById(${smallClassName}.get${firstNameUp}());
 		Assert.notNull(${smallClassName}Info, "数据不存在");
 		${smallClassName}.setUpdateUserId(getUserId());
 		${smallClassName}.setUpdateTime(new Date());
 		${smallClassName}Service.update(${smallClassName});
-		logger.info("【{}】修改成功", ${smallClassName});
+		log.info("【{}】修改成功", ${smallClassName});
 		return buildSuccess("修改成功");
 	}
 	
@@ -136,10 +132,10 @@ public class ${className}Controller extends BaseController {
 	@ResponseBody
 	public Map<String, Object> delete(Integer ${firstName}) {
 		Assert.notNull(${firstName}, "${firstName}为空");
-		${className} ${smallClassName} = ${smallClassName}Service.get${className}ById(${firstName});
+		${className} ${smallClassName} = ${smallClassName}Service.getById(${firstName});
 		Assert.notNull(${smallClassName}, "数据不存在");
 		${smallClassName}Service.remove(${smallClassName});
-		logger.info("【{}】删除成功", ${smallClassName});
+		log.info("【{}】删除成功", ${smallClassName});
 		return buildSuccess("删除成功");
 	}
 	

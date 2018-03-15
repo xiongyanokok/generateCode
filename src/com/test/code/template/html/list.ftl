@@ -17,7 +17,7 @@
 	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> xx管理 <span class="c-gray en">&gt;</span> xx列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="pd-20">
 		<div class="text-l">
-			条件A：<input type="text" class="input-text" style="width: 15%;" id="" name="" />
+			条件A：<input type="text" class="input-text" style="width: 15%;" id="name" name="name" />
 			<span style="padding-right: 5%;"></span>
 			条件B：<input type="text" class="input-text" style="width: 15%;" id="" name="" />
 			<span style="padding-right: 5%;"></span>
@@ -89,12 +89,12 @@
 	                "mData" : "createTime",
 	                "sTitle" : "创建时间",
 	                "bSortable": true,
-	                "sWidth" : "8%"
+	                "sWidth" : "5%"
 	            }, {
 	            	"mData" : null,
 	            	"sTitle" : "操作",
 	            	"bSortable" : false,
-	            	"sWidth" : "10%",
+	            	"sWidth" : "5%",
 	            	"mRender": function(data, type, full) {
 	            		var button = "<span class=\"btn btn-success radius size-MINI\" onclick=\"edit("+data.${firstName}+")\">修改</span>"+
 	            			" <span class=\"btn btn-danger radius size-MINI\" onclick=\"del("+data.${firstName}+")\">删除</span>";
